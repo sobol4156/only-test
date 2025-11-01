@@ -38,7 +38,7 @@
 1. Клонировать репозиторий:
 
 ```bash
-git clone https://github.com/sobol4156/only-test.git
+git clone https://github.com/sobol4156/timeline-block.git
 ```
 
 2. Перейти в папку проекта:
