@@ -1,32 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Dot, DotName, Circle } from "./TimeCircle.styled";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
-type TimeCircleProps = {
-  segments: {
-    name: string;
-    date_1: string;
-    date_2: string;
-    sliderData: { date: number; text: string }[];
-  }[];
-  activeIndex: number;
-  onSelect: (index: number) => void;
-};
+import { TimeCircleProps } from "@types";
+import { BREAKPOINTS, CIRCLE_CONFIG } from "@constants";
 
 const TimeCircle: React.FC<TimeCircleProps> = ({
   segments,
   activeIndex,
   onSelect,
 }) => {
-  const isMobile = useMediaQuery("(max-width: 992px)");
-  const [radius, setRadius] = useState(265);
-  const [center, setCenter] = useState(265);
-  const segmentAngle = 360 / segments.length;
+  const isMobile = useMediaQuery(BREAKPOINTS.TABLET);
+  const segmentAngle = useMemo(() => 360 / segments.length, [segments.length]);
+  
+  const radius = isMobile ? CIRCLE_CONFIG.MOBILE_RADIUS : CIRCLE_CONFIG.DEFAULT_RADIUS;
+  const center = isMobile ? CIRCLE_CONFIG.MOBILE_RADIUS : CIRCLE_CONFIG.DEFAULT_RADIUS;
 
-  const [rotation, setRotation] = useState(45);
-  const [prevIndex, setPrevIndex] = useState(0);
+  const [rotation, setRotation] = useState<number>(CIRCLE_CONFIG.INITIAL_ROTATION);
+  const [prevIndex, setPrevIndex] = useState<number>(0);
 
   useEffect(() => {
+    if (activeIndex === prevIndex) return;
+
     const delta = activeIndex - prevIndex;
     let shortestPath = delta;
 
@@ -34,30 +28,19 @@ const TimeCircle: React.FC<TimeCircleProps> = ({
       shortestPath =
         delta > 0 ? delta - segments.length : delta + segments.length;
     }
-    const newRotation = rotation - shortestPath * segmentAngle;
 
-    setRotation(newRotation);
+    setRotation((prevRotation) => prevRotation - shortestPath * segmentAngle);
     setPrevIndex(activeIndex);
-  }, [activeIndex]);
-
-  useEffect(() => {
-    if (isMobile) {
-      setRadius(200);
-      setCenter(200);
-    } else {
-      setRadius(265);
-      setCenter(265);
-    }
-  }, [isMobile]);
+  }, [activeIndex, segments.length, segmentAngle, prevIndex]);
 
   return (
     <Circle $rotation={rotation}>
       {segments.map((segment, index) => {
         const label = `${segment.date_1} – ${segment.date_2}`;
-        const angle = segmentAngle * index - 90;
+        const angle = segmentAngle * index + CIRCLE_CONFIG.START_ANGLE;
         const radians = (angle * Math.PI) / 180;
-        const x = center + radius * Math.cos(radians) - 3;
-        const y = center + radius * Math.sin(radians) - 3;
+        const x = center + radius * Math.cos(radians) - CIRCLE_CONFIG.DOT_OFFSET;
+        const y = center + radius * Math.sin(radians) - CIRCLE_CONFIG.DOT_OFFSET;
 
         return (
           <Dot

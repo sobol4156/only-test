@@ -12,12 +12,15 @@ export default {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
+    mainFiles: ["index"],
     alias: {
       "@": path.resolve("./src"),
       "@components": path.resolve("./src/components"),
       "@data": path.resolve("./src/data"),
       "@hooks": path.resolve("./src/hooks"),
       "@styles": path.resolve("./src/styles"),
+      "@types": path.resolve("./src/types"),
+      "@constants": path.resolve("./src/constants"),
     },
   },
   module: {

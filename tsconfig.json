@@ -16,6 +16,18 @@
       ],
       "@styles/*": [
         "./src/styles/*"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ],
+      "@types": [
+        "./src/types/index.ts"
+      ],
+      "@constants/*": [
+        "./src/constants/*"
+      ],
+      "@constants": [
+        "./src/constants/index.ts"
       ]
     },
     "strict": true,

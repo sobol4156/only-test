@@ -1,5 +1,5 @@
 import React from "react";
-import { CastomButton } from "./Button.styled";
+import { CustomButton } from "./Button.styled";
 
 type ButtonProps = {
   text: string;
@@ -29,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
 }) => {
   return (
-    <CastomButton
+    <CustomButton
       $border={border}
       $border_color={border_color}
       $border_radius={border_radius}
@@ -42,7 +42,7 @@ const Button: React.FC<ButtonProps> = ({
     >
       {icon && <img src={icon} alt="icon" />}
       {text && text}
-    </CastomButton>
+    </CustomButton>
   );
 };
 

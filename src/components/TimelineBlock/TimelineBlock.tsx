@@ -8,14 +8,15 @@ import { Wrapper } from "./TimelineBlock.styled";
 import AnimatedYears from "@components/AnimatedYears/AnimatedYears";
 import MobileNavigation from "@components/MobileNavigation/MobileNavigation";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { BREAKPOINTS } from "@constants";
 
 const TimelineBlock: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery(BREAKPOINTS.MOBILE);
 
   return (
     <Wrapper>
-      <Title title={"Исторические\nдаты"} />
+      <Title title="Исторические\nдаты" />
       <TimeCircle
         segments={MOCK_DATA}
         activeIndex={activeIndex}

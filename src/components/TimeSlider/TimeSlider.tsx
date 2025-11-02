@@ -11,14 +11,7 @@ import {
   TopicTitle,
   SwiperWrapper,
 } from "./TimeSlider.styled";
-
-type TimeSliderProps = {
-  segments: {
-    name: string;
-    sliderData: { date: number; text: string }[];
-  }[];
-  activeIndex: number;
-};
+import { TimeSliderProps } from "@types";
 
 const TimeSlider: React.FC<TimeSliderProps> = ({ activeIndex, segments }) => {
   return (
@@ -37,14 +30,12 @@ const TimeSlider: React.FC<TimeSliderProps> = ({ activeIndex, segments }) => {
           1200: { slidesPerView: 3 },
         }}
       >
-        {segments[activeIndex].sliderData.map((slide) => {
-          return (
-            <SwiperSlide key={slide.date}>
-              <SlideTitle>{slide.date}</SlideTitle>
-              <SlideContent>{slide.text}</SlideContent>
-            </SwiperSlide>
-          );
-        })}
+        {segments[activeIndex].sliderData.map((slide) => (
+          <SwiperSlide key={slide.date}>
+            <SlideTitle>{slide.date}</SlideTitle>
+            <SlideContent>{slide.text}</SlideContent>
+          </SwiperSlide>
+        ))}
       </StyledSwiper>
     </SwiperWrapper>
   );

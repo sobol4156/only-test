@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CastomButton = styled.button<{
+export const CustomButton = styled.button<{
   $border: number;
   $border_color: string;
   $border_radius: number;
