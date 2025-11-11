@@ -1,4 +1,4 @@
-# Timeline Block — Тестовое задание
+# Timeline Block
 
 <img width="1553" height="883" alt="image" src="https://github.com/user-attachments/assets/d411a3f6-3d88-4534-833d-5992999c792d" />
 
